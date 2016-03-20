@@ -346,6 +346,27 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_enrollments_on_course_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_enrollments_on_course_id ON enrollments USING btree (course_id);
+
+
+--
+-- Name: index_enrollments_on_student_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_enrollments_on_student_id ON enrollments USING btree (student_id);
+
+
+--
+-- Name: index_enrollments_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_enrollments_on_teacher_id ON enrollments USING btree (teacher_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -415,4 +436,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160320203304');
 INSERT INTO schema_migrations (version) VALUES ('20160320204017');
 
 INSERT INTO schema_migrations (version) VALUES ('20160320204424');
+
+INSERT INTO schema_migrations (version) VALUES ('20160320204812');
 
