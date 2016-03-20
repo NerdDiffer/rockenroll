@@ -1,6 +1,6 @@
 class Meeting < ActiveRecord::Base
-  belongs_to :course
-  belongs_to :room
+  belongs_to :course, inverse_of: :meetings
+  belongs_to :room,   inverse_of: :meetings
 
   enum length: {
     twenty_minute:       '20',
