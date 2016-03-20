@@ -353,6 +353,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_2e119501f4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY enrollments
+    ADD CONSTRAINT fk_rails_2e119501f4 FOREIGN KEY (course_id) REFERENCES courses(id);
+
+
+--
 -- Name: fk_rails_7b64f8ae63; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -361,11 +369,27 @@ ALTER TABLE ONLY meetings
 
 
 --
+-- Name: fk_rails_e62a7e8f83; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY enrollments
+    ADD CONSTRAINT fk_rails_e62a7e8f83 FOREIGN KEY (teacher_id) REFERENCES people(id);
+
+
+--
 -- Name: fk_rails_e645d339ca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY meetings
     ADD CONSTRAINT fk_rails_e645d339ca FOREIGN KEY (course_id) REFERENCES courses(id);
+
+
+--
+-- Name: fk_rails_f01c555e06; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY enrollments
+    ADD CONSTRAINT fk_rails_f01c555e06 FOREIGN KEY (student_id) REFERENCES people(id);
 
 
 --
@@ -389,4 +413,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160320061500');
 INSERT INTO schema_migrations (version) VALUES ('20160320203304');
 
 INSERT INTO schema_migrations (version) VALUES ('20160320204017');
+
+INSERT INTO schema_migrations (version) VALUES ('20160320204424');
 
