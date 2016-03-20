@@ -79,6 +79,39 @@ ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
 
 
 --
+-- Name: enrollments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE enrollments (
+    id integer NOT NULL,
+    course_id integer,
+    teacher_id integer,
+    student_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: enrollments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE enrollments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: enrollments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE enrollments_id_seq OWNED BY enrollments.id;
+
+
+--
 -- Name: meetings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -200,6 +233,13 @@ ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY enrollments ALTER COLUMN id SET DEFAULT nextval('enrollments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY meetings ALTER COLUMN id SET DEFAULT nextval('meetings_id_seq'::regclass);
 
 
@@ -223,6 +263,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY courses
     ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY enrollments
+    ADD CONSTRAINT enrollments_pkey PRIMARY KEY (id);
 
 
 --
@@ -269,4 +317,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160319085758');
 INSERT INTO schema_migrations (version) VALUES ('20160319085838');
 
 INSERT INTO schema_migrations (version) VALUES ('20160319090006');
+
+INSERT INTO schema_migrations (version) VALUES ('20160319090233');
 
