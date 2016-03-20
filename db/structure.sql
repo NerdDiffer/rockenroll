@@ -147,6 +147,39 @@ ALTER SEQUENCE meetings_id_seq OWNED BY meetings.id;
 
 
 --
+-- Name: people; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE people (
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    birthdate date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE people_id_seq OWNED BY people.id;
+
+
+--
 -- Name: rooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -247,6 +280,13 @@ ALTER TABLE ONLY meetings ALTER COLUMN id SET DEFAULT nextval('meetings_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY rooms ALTER COLUMN id SET DEFAULT nextval('rooms_id_seq'::regclass);
 
 
@@ -279,6 +319,14 @@ ALTER TABLE ONLY enrollments
 
 ALTER TABLE ONLY meetings
     ADD CONSTRAINT meetings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY people
+    ADD CONSTRAINT people_pkey PRIMARY KEY (id);
 
 
 --
@@ -319,4 +367,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160319085838');
 INSERT INTO schema_migrations (version) VALUES ('20160319090006');
 
 INSERT INTO schema_migrations (version) VALUES ('20160319090233');
+
+INSERT INTO schema_migrations (version) VALUES ('20160320061500');
 
