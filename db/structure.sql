@@ -29,6 +29,20 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: meeting_length; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE meeting_length AS ENUM (
+    '20',
+    '30',
+    '45',
+    '60',
+    '75',
+    '90'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -62,6 +76,41 @@ CREATE SEQUENCE courses_id_seq
 --
 
 ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
+
+
+--
+-- Name: meetings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE meetings (
+    id integer NOT NULL,
+    start timestamp without time zone,
+    "end" timestamp without time zone,
+    length meeting_length,
+    course_id integer,
+    room_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: meetings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE meetings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: meetings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE meetings_id_seq OWNED BY meetings.id;
 
 
 --
@@ -151,6 +200,13 @@ ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY meetings ALTER COLUMN id SET DEFAULT nextval('meetings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY rooms ALTER COLUMN id SET DEFAULT nextval('rooms_id_seq'::regclass);
 
 
@@ -167,6 +223,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY courses
     ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: meetings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY meetings
+    ADD CONSTRAINT meetings_pkey PRIMARY KEY (id);
 
 
 --
@@ -203,4 +267,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160319084030');
 INSERT INTO schema_migrations (version) VALUES ('20160319085758');
 
 INSERT INTO schema_migrations (version) VALUES ('20160319085838');
+
+INSERT INTO schema_migrations (version) VALUES ('20160319090006');
 
