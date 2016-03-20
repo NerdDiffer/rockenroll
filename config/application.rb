@@ -31,5 +31,8 @@ module MusicSchool
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Use PostgreSQL instead of Ruby schema because we're using 'enum' datatype
+    config.active_record.schema_format = :sql
   end
 end
