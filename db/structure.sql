@@ -84,9 +84,9 @@ ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
 
 CREATE TABLE enrollments (
     id integer NOT NULL,
-    course_id integer,
-    teacher_id integer,
-    student_id integer,
+    course_id integer NOT NULL,
+    teacher_id integer NOT NULL,
+    student_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -369,4 +369,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160319090006');
 INSERT INTO schema_migrations (version) VALUES ('20160319090233');
 
 INSERT INTO schema_migrations (version) VALUES ('20160320061500');
+
+INSERT INTO schema_migrations (version) VALUES ('20160320203304');
 
