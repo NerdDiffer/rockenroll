@@ -367,6 +367,13 @@ CREATE INDEX index_enrollments_on_teacher_id ON enrollments USING btree (teacher
 
 
 --
+-- Name: index_users_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_person_id ON users USING btree (person_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -414,6 +421,14 @@ ALTER TABLE ONLY enrollments
 
 
 --
+-- Name: fk_rails_fa67535741; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_fa67535741 FOREIGN KEY (person_id) REFERENCES people(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -438,4 +453,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160320204017');
 INSERT INTO schema_migrations (version) VALUES ('20160320204424');
 
 INSERT INTO schema_migrations (version) VALUES ('20160320204812');
+
+INSERT INTO schema_migrations (version) VALUES ('20160324014653');
 
