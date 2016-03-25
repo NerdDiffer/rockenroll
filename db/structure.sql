@@ -118,7 +118,6 @@ ALTER SEQUENCE enrollments_id_seq OWNED BY enrollments.id;
 CREATE TABLE meetings (
     id integer NOT NULL,
     start timestamp without time zone,
-    "end" timestamp without time zone,
     length meeting_length,
     course_id integer,
     room_id integer,
@@ -455,4 +454,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160320204424');
 INSERT INTO schema_migrations (version) VALUES ('20160320204812');
 
 INSERT INTO schema_migrations (version) VALUES ('20160324014653');
+
+INSERT INTO schema_migrations (version) VALUES ('20160325031905');
 
