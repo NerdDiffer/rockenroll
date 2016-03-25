@@ -2,11 +2,11 @@ module Seeds
   module CreateMany
     class << self
       def rooms
-        Defaults.rooms.each { |room| CreateOne.room!(name) }
+        Defaults.rooms.each { |room| CreateOne.room!(room) }
       end
 
       def courses
-        Defaults.courses.each { |course| CreateOne.course!(name) }
+        Defaults.courses.each { |course| CreateOne.course!(course) }
       end
 
       def people
