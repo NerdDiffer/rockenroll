@@ -4,11 +4,14 @@ gem 'rails', '4.2.5.2'
 gem 'pg', '~> 0.18.4'
 
 # front-end
-gem 'bourbon', '~> 4.2.6'
+gem 'bourbon', '5.0.0.beta.5'
+gem 'neat', '~> 1.7.4'
 gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.1'
 gem 'jquery-rails', '~> 4.1.1'
 gem 'turbolinks',   '~> 2.5.3'
+gem 'draper', '~> 2.1.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

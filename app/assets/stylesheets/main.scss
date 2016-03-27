@@ -1,0 +1,11 @@
+body {
+  @include outer-container(100%);
+}
+
+div.container.main {
+  @include shift(2);
+  @include span-columns(8);
+
+  margin-top: 3rem;
+  padding: 1rem;
+}
