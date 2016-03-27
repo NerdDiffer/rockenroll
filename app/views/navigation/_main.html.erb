@@ -1,0 +1,41 @@
+<ul id='js-navigation-menu' class='navigation-menu show'>
+  <% nav_link_more = { class: 'nav-link more' } %>
+  <% submenu       = { class: 'submenu' } %>
+
+  <%= content_tag(:li, nav_link_more) do %>
+    <%= link_to('Enrollments', enrollments_path) %>
+    <%= content_tag(:ul, submenu) do %>
+      <li><%= link_to('New Enrollment', new_enrollment_path) %></li>
+    <% end %>
+  <% end %>
+  <%= content_tag(:li, nav_link_more) do %>
+    <%= link_to('People', people_path) %>
+    <%= content_tag(:ul, submenu) do %>
+      <li><%= link_to('New Person', new_person_path) %></li>
+    <% end %>
+  <% end %>
+  <%= content_tag(:li, nav_link_more) do %>
+    <%= link_to('Courses', courses_path) %>
+    <%= content_tag(:ul, submenu) do %>
+      <li><%= link_to('New Course', new_course_path) %></li>
+    <% end %>
+  <% end %>
+  <%= content_tag(:li, nav_link_more) do %>
+    <%= link_to('Rooms', rooms_path) %>
+    <%= content_tag(:ul, submenu) do %>
+      <li><%= link_to('New Room', new_room_path) %></li>
+    <% end %>
+  <% end %>
+  <%= content_tag(:li, nav_link_more) do %>
+    <%= link_to('Meetings', meetings_path) %>
+    <%= content_tag(:ul, submenu) do %>
+      <li><%= link_to('New Meeting', new_meeting_path) %></li>
+    <% end %>
+  <% end %>
+  <%= content_tag(:li, class: 'nav-link more') do %>
+    <%= link_to('My Account', '/profile') %>
+    <%= content_tag(:ul, submenu) do %>
+      <li><%= link_to('Sign Out', '/sign_out') %></li>
+    <% end %>
+  <% end %>
+</ul>
