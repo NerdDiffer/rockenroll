@@ -1,0 +1,35 @@
+<div class='people index'>
+  <h1>People</h1>
+
+  <p>
+    <% link_opts = { class: 'plus_one' } %>
+    <%= link_to(new_person_path, link_opts) do %>
+      <span>+ New Person</span>
+    <% end %>
+  </p>
+
+  <table summary='Person list'>
+    <thead>
+      <tr class='header'>
+        <th>id</th>
+        <th>Full Name</th>
+        <th>Birth Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% people = PersonDecorator.decorate_collection(@people) %>
+      <% people.each do |person| %>
+        <% locals  = { record: person } %>
+        <tr>
+          <td><%= person.id %></td>
+          <td><%= link_to(person.full_name, person) %></td>
+          <td><%= person.birthdate %></td>
+          <%= content_tag(:td, class: 'action') do %>
+            <%= render(partial: 'shared/actions', locals: locals) %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

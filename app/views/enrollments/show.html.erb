@@ -1,0 +1,18 @@
+<h1>Enrollment</h1>
+
+<p>
+  <strong>Course:</strong>
+  <%= enrollment.course_name %>
+</p>
+<p>
+  <strong>Teacher:</strong>
+  <%= enrollment.teacher_name %>
+</p>
+<p>
+  <strong>Student:</strong>
+  <%= enrollment.student_name %>
+</p>
+
+<%= link_to 'Edit', edit_enrollment_path(enrollment) %> |
+<%= link_to 'Delete', enrollment, LinkHelper.delete_link_opts %> |
+<%= link_to 'Back', enrollments_path %>

@@ -1,0 +1,17 @@
+<%= form_for @enrollment do |f| %>
+  <div class='field'>
+    <%= f.label :course %>
+    <%= f.text_field :course %>
+  </div>
+  <div class='field'>
+    <%= f.label :teacher %>
+    <%= f.text_field :teacher %>
+  </div>
+  <div class='field'>
+    <%= f.label :student %>
+    <%= f.text_field :student %>
+  </div>
+  <div class='field'>
+    <%= f.submit %>
+  </div>
+<% end %>

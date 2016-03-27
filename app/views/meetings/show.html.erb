@@ -1,0 +1,31 @@
+<h1>Meeting</h1>
+
+<p>
+  <strong>Course</strong>
+  <%= meeting.course_name %>
+</p>
+<p>
+  <strong>Room</strong>
+  <%= meeting.room_name %>
+</p>
+<p>
+  <strong>Starting Date/Time</strong>
+  <%= meeting.start %>
+</p>
+<p>
+  <strong>Stopping Date/Time</strong>
+  <%= meeting.stop %>
+</p>
+<p>
+  <strong>Length</strong>
+  <%= meeting.display_length %>
+</p>
+
+<div class='meeting course_enrollments'>
+  <h2>Course Enrollments</h2>
+  <%= meeting.course_enrollments %>
+</div>
+
+<%= link_to 'Edit', edit_meeting_path(meeting) %> |
+<%= link_to 'Delete', meeting, LinkHelper.delete_link_opts %> |
+<%= link_to 'Back', :back %>

@@ -1,0 +1,20 @@
+<h1><%= person.full_name %></h1>
+
+<h5><%= person.first_name_plus_initial %></h5>
+
+<p>
+  <strong>First Name:</strong>
+  <%= person.first_name %>
+</p>
+<p>
+  <strong>Last Name:</strong>
+  <%= person.last_name %>
+</p>
+<p>
+  <strong>Birth Date:</strong>
+  <%= person.birthdate %>
+</p>
+
+<%= link_to 'Edit', edit_person_path(person) %> |
+<%= link_to 'Delete', person, LinkHelper.delete_link_opts %> |
+<%= link_to 'Back', people_path %>

@@ -1,0 +1,17 @@
+<%= form_for @person do |f| %>
+  <div class='field'>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class='field'>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class='field'>
+    <%= f.label :birthdate %>
+    <%= f.date_field :birthdate %>
+  </div>
+  <div class='field'>
+    <%= f.submit %>
+  </div>
+<% end %>

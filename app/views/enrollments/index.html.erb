@@ -1,0 +1,38 @@
+<div class='enrollments index'>
+  <h1>Enrollments</h1>
+
+  <p>
+    <% link_opts = { class: 'plus_one' } %>
+    <%= link_to(new_enrollment_path, link_opts) do %>
+      <span>+ New Enrollment</span>
+    <% end %>
+  </p>
+
+  <table class='tables' summary='enrollment list'>
+    <thead>
+      <tr class='header'>
+        <th>Course</th>
+        <th>Teacher</th>
+        <th>Student</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% enrollments = EnrollmentDecorator.decorate_collection(@enrollments) %>
+      <% enrollments.each do |enrollment| %>
+      <% course  = enrollment.course %>
+      <% teacher = enrollment.teacher %>
+      <% student = enrollment.student %>
+      <% locals  = { record: enrollment } %>
+      <tr>
+        <td><%= link_to(course.name, course) %></td>
+        <td><%= link_to(enrollment.teacher_name, teacher) %></td>
+        <td><%= link_to(enrollment.student_name, student) %></td>
+        <%= content_tag(:td, class: 'action') do %>
+          <%= render(partial: 'shared/actions', locals: locals) %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

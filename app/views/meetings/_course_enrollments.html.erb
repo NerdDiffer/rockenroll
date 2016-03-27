@@ -1,0 +1,24 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Teacher</th>
+      <th>Student</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% meeting.course.enrollments.each do |enrollment| %>
+      <tr>
+        <td><%= link_to(enrollment.id, enrollment) %></td>
+        <td><%= link_to(enrollment.teacher_name, enrollment.teacher) %></td>
+        <td><%= link_to(enrollment.student_name, enrollment.student) %></td>
+        <%= content_tag(:td, class: 'action') do %>
+          <%= link_to('Edit', edit_enrollment_path(enrollment)) %><br />
+          <%= link_to('Delete', enrollment, LinkHelper.delete_link_opts) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

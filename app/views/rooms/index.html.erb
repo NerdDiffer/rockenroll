@@ -1,0 +1,30 @@
+<div class='rooms index'>
+  <h1>Rooms</h1>
+
+  <p>
+    <% link_opts = { class: 'plus_one' } %>
+    <%= link_to(new_room_path, link_opts) do %>
+      <span>+ New Room</span>
+    <% end %>
+  </p>
+
+  <table summary='Room list'>
+    <thead>
+      <tr class='header'>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| %>
+      <tr>
+        <% locals  = { record: room } %>
+        <td><%= link_to(room.name, room) %></td>
+        <%= content_tag(:td, class: 'action') do %>
+          <%= render(partial: 'shared/actions', locals: locals) %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
