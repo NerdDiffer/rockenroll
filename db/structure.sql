@@ -53,7 +53,7 @@ SET default_with_oids = false;
 
 CREATE TABLE courses (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -184,7 +184,7 @@ ALTER SEQUENCE people_id_seq OWNED BY people.id;
 
 CREATE TABLE rooms (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -456,4 +456,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160320204812');
 INSERT INTO schema_migrations (version) VALUES ('20160324014653');
 
 INSERT INTO schema_migrations (version) VALUES ('20160325031905');
+
+INSERT INTO schema_migrations (version) VALUES ('20160328170728');
 
