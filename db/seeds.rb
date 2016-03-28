@@ -6,4 +6,5 @@ if Rails.env.development?
   Seeds::CreateMany.courses
   Seeds::CreateMany.rooms
   Seeds::CreateMany.people
+  Seeds::CreateMany.enrollments
 end

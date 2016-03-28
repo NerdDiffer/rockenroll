@@ -10,8 +10,15 @@ module Seeds
       end
 
       def people
-        Defaults.people.each do |person|
-          CreateOne.person!(person[:first_name], person[:last_name])
+        Defaults.num_people.times { CreateOne.person! }
+      end
+
+      def enrollments
+        Defaults.num_enrollments.times do
+          student_id = Random.person_id
+          teacher_id = Random.person_id
+          course_id  = Random.course_id
+          CreateOne.enrollment!(student_id, teacher_id, course_id)
         end
       end
     end

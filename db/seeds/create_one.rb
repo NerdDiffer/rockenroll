@@ -1,3 +1,5 @@
+require 'faker'
+
 module Seeds
   module CreateOne
     class << self
@@ -9,21 +11,18 @@ module Seeds
         Course.create!(name: name)
       end
 
-      def meeting!(start, length, associations = {})
-        associations.merge!(start: start, length: length)
-        Meeting.create!(associations)
+      def person!
+        min_age = Defaults.person_age[:min]
+        max_age = Defaults.person_age[:max]
+        Person.create!(first_name: Faker::Name.first_name,
+                       last_name:  Faker::Name.last_name,
+                       birthdate:  Faker::Date.birthday(min_age, max_age))
       end
 
-      def person!(first_name, last_name, birthdate = nil)
-        Person.create!(first_name: first_name,
-                       last_name: last_name,
-                       birthdate: birthdate)
-      end
-
-      def enrollment!(student, teacher, course)
-        Enrollment.create!(student: student,
-                           teacher: teacher,
-                           course: course)
+      def enrollment!(student_id, teacher_id, course_id)
+        Enrollment.create!(student_id: student_id,
+                           teacher_id: teacher_id,
+                           course_id:  course_id)
       end
     end
   end
