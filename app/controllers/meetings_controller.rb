@@ -1,7 +1,8 @@
 class MeetingsController < ApplicationController
   before_action :load_meeting, only: [:show, :edit, :update, :destroy]
 
-  attr_reader :course
+  attr_reader :meeting
+  decorates_assigned :meeting
 
   def index
     @meetings = Meeting.all
@@ -11,6 +12,7 @@ class MeetingsController < ApplicationController
   end
 
   def new
+    @meeting = Meeting.new
   end
 
   def edit

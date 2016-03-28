@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
   before_action :load_course, only: [:show, :edit, :update, :destroy]
 
   attr_reader :course
+  decorates_assigned :course
 
   def index
     @courses = Course.all

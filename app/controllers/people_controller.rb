@@ -2,6 +2,7 @@ class PeopleController < ApplicationController
   before_action :load_person, only: [:show, :edit, :update, :destroy]
 
   attr_reader :person
+  decorates_assigned :person
 
   def index
     @people = People.all

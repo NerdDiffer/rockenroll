@@ -2,6 +2,7 @@ class EnrollmentsController < ApplicationController
   before_action :load_enrollment, only: [:show, :edit, :update, :destroy]
 
   attr_reader :enrollment
+  decorates_assigned :enrollment
 
   def index
     @enrollments = Enrollment.all
