@@ -17,6 +17,8 @@ gem 'draper', '~> 2.1.0'
 
 # Use pry instead of irb when calling `$ rails console` from command line
 gem 'pry-rails', '~> 0.3.4'
+# Time of day: https://github.com/jackc/tod
+gem 'tod', '~> 2.0.2'
 
 group :development, :test do
   gem 'byebug', '~> 8.2.2', require: false
