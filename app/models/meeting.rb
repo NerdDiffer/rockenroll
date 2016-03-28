@@ -2,6 +2,11 @@ class Meeting < ActiveRecord::Base
   belongs_to :course, inverse_of: :meetings
   belongs_to :room,   inverse_of: :meetings
 
+  MINUTE_INTERVAL = 5
+
+  before_validation :round_start_down
+  validate :start, :validate_start
+
   enum length: {
     twenty_minute:       '20',
     thirty_minute:       '30',
@@ -11,7 +16,13 @@ class Meeting < ActiveRecord::Base
     ninety_minute:       '90'
   }
 
-  validate :start, :acceptable_starting_time?
+  def self.earliest_start
+    @earliest_start ||= Tod::TimeOfDay.new(9, 0, 0)  # => 09:00:00
+  end
+
+  def self.latest_start
+    @latest_start   ||= Tod::TimeOfDay.new(21, 0, 0) # => 21:00:00
+  end
 
   def stop
     return unless start?
@@ -26,13 +37,46 @@ class Meeting < ActiveRecord::Base
 
   private
 
-  def acceptable_starting_time?
-    message =  'The minute in the starting time must be a 0 or a 5. ie: '
-    message += '3:00, 3:05, 3:10, 3:15, 3:20, 3:25, 3:30 etc.'
-    errors.add(:start, message) unless divisible_by_5
+  def round_start_down
+    return unless start?
+    rounded_minute = round_minute_down(start.min)
+    self.start = start.change(min: rounded_minute)
   end
 
-  def divisible_by_5
-    start.min % 5 == 0
+  # Round down to nearest multiple of 5
+  def round_minute_down(minute)
+    remainder = minute % MINUTE_INTERVAL
+    minute -= remainder
+  end
+
+  # Round up to nearest multiple of 5
+  def round_minute_up(minute)
+    remainder = minute % MINUTE_INTERVAL
+
+    if remainder == 0
+      minute
+    else
+      difference = MINUTE_INTERVAL - remainder
+      minute += difference
+    end
+  end
+
+  def validate_start
+    return unless start?
+
+    unless start_time_within_regular_business_hours?
+      earliest = self.class.earliest_start.to_s
+      latest   = self.class.latest_start.to_s
+      message  = "must be between #{earliest} and #{latest}"
+      errors.add(:start, message)
+    end
+  end
+
+  def start_time_within_regular_business_hours?
+    earliest = self.class.earliest_start.second_of_day
+    latest   = self.class.latest_start.second_of_day
+    seconds_since_midnight = start.seconds_since_midnight.to_i
+
+    seconds_since_midnight.between?(earliest, latest)
   end
 end
