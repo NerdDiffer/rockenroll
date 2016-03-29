@@ -1,0 +1,26 @@
+<div class='people teachers'>
+  <h2>Teachers</h2>
+
+  <table summary='Person list'>
+    <thead>
+      <tr class='header'>
+        <th>id</th>
+        <th>Full Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% teachers = PersonDecorator.decorate_collection(person.teachers) %>
+      <% teachers.each do |teacher| %>
+        <% locals  = { record: person } %>
+        <tr>
+          <td><%= teacher.id %></td>
+          <td><%= link_to(teacher.full_name, teacher) %></td>
+          <%= content_tag(:td, class: 'action') do %>
+            <%= render(partial: 'shared/actions', locals: locals) %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

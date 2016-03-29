@@ -15,6 +15,12 @@
   <%= person.birthdate %>
 </p>
 
+<hr />
+
+<%= person.show_enrollments %>
+<%= person.show_teachers %>
+<%= person.show_students %>
+
 <%= link_to 'Edit', edit_person_path(person) %> |
 <%= link_to 'Delete', person, LinkHelper.delete_link_opts %> |
 <%= link_to 'Back', people_path %>
