@@ -9,7 +9,6 @@ end
 require 'spec_helper'
 require 'rspec/rails'
 # require 'support/stub_login'
-# require 'support/factory_girl'
 
 # include StubLogin
 
@@ -21,4 +20,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.infer_base_class_for_anonymous_controllers = false
+  config.include FactoryGirl::Syntax::Methods
 end
