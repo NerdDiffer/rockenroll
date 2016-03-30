@@ -5,6 +5,7 @@ seed_files.each { |seed_file| require seed_file }
 if Rails.env.development?
   Seeds::CreateMany.courses
   Seeds::CreateMany.rooms
+  Seeds::CreateMany.meetings
   Seeds::CreateMany.people
   Seeds::CreateMany.enrollments
 end

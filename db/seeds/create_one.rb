@@ -24,6 +24,14 @@ module Seeds
                            teacher_id: teacher_id,
                            course_id:  course_id)
       end
+
+      def meeting!(start, length, associations = {})
+        Meeting.create!(start: start,
+                        length: length,
+                        course_id: associations[:course_id],
+                        room_id:   associations[:room_id])
+      end
+
     end
   end
 end

@@ -21,6 +21,18 @@ module Seeds
           CreateOne.enrollment!(student_id, teacher_id, course_id)
         end
       end
+
+      def meetings
+        Defaults.num_meetings.times do
+          start  = Random.meeting_start
+          length = Random.meeting_length
+          course_id = Random.course_id
+          room_id   = Random.room_id
+
+          CreateOne.meeting!(start, length,
+                             course_id: course_id, room_id: room_id)
+        end
+      end
     end
   end
 end
