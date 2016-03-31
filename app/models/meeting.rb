@@ -16,12 +16,20 @@ class Meeting < ActiveRecord::Base
     ninety_minute:       '90'
   }
 
-  def self.earliest_start
-    @earliest_start ||= Tod::TimeOfDay.new(9, 0, 0)  # => 09:00:00
-  end
+  class << self
+    def earliest_start
+      @earliest_start ||= time_of_day.new(9, 0, 0)  # => 09:00:00
+    end
 
-  def self.latest_start
-    @latest_start   ||= Tod::TimeOfDay.new(21, 0, 0) # => 21:00:00
+    def latest_start
+      @latest_start   ||= time_of_day.new(21, 0, 0) # => 21:00:00
+    end
+
+    private
+
+    def time_of_day
+      Tod::TimeOfDay
+    end
   end
 
   def stop
