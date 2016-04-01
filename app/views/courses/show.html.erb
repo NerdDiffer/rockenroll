@@ -5,13 +5,7 @@
   <%= course.id %>
 </p>
 
-<h2>Course Enrollments</h2>
+<hr />
 
-<p>
-  <% link_opts = { class: 'plus_one' } %>
-  <%= link_to(new_enrollment_path, link_opts) do %>
-    <span>+ New Enrollment</span>
-  <% end %>
-</p>
-
+<%= render 'meetings' %>
 <%= render 'enrollments' %>

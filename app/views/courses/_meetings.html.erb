@@ -1,0 +1,36 @@
+<div class='course_meetings'>
+  <h2>Meetings</h2>
+
+  <p>
+    <% link_opts = { class: 'plus_one' } %>
+    <%= link_to(new_meeting_path, link_opts) do %>
+      <span>+ New Meeting</span>
+    <% end %>
+  </p>
+
+  <table summary='meeting list'>
+    <thead>
+      <tr class='header'>
+        <th>id</th>
+        <th>Course</th>
+        <th>Room</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Length</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% meetings = CourseDecorator.decorate_collection(course.meetings) %>
+      <% meetings.each do |meeting| %>
+      <tr>
+        <td><%= link_to(meeting.id, meeting) %></td>
+        <td><%= meeting.link_to_course %></td>
+        <td><%= meeting.link_to_room %></td>
+        <td><%= meeting.start %></td>
+        <td><%= meeting.stop %></td>
+        <td><%= meeting.display_length %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
