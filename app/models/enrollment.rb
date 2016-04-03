@@ -4,6 +4,10 @@ class Enrollment < ActiveRecord::Base
   belongs_to :teacher, class_name: 'Person'
   belongs_to :student, class_name: 'Person'
 
+  has_many :lessons,
+    foreign_key: 'enrollment_id',
+    class_name: 'Meeting'
+
   validates :course,  presence: true
   validates :teacher, presence: true
   validates :student, presence: true

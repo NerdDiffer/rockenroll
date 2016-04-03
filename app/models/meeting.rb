@@ -1,6 +1,7 @@
 class Meeting < ActiveRecord::Base
   belongs_to :course, inverse_of: :meetings
   belongs_to :room,   inverse_of: :meetings
+  belongs_to :enrollment
 
   MINUTE_INTERVAL = 5
 
