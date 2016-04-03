@@ -122,7 +122,8 @@ CREATE TABLE meetings (
     course_id integer,
     room_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    enrollment_id integer
 );
 
 
@@ -366,6 +367,13 @@ CREATE INDEX index_enrollments_on_teacher_id ON enrollments USING btree (teacher
 
 
 --
+-- Name: index_meetings_on_enrollment_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_meetings_on_enrollment_id ON meetings USING btree (enrollment_id);
+
+
+--
 -- Name: index_users_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -393,6 +401,14 @@ ALTER TABLE ONLY enrollments
 
 ALTER TABLE ONLY meetings
     ADD CONSTRAINT fk_rails_7b64f8ae63 FOREIGN KEY (room_id) REFERENCES rooms(id);
+
+
+--
+-- Name: fk_rails_994b99263e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY meetings
+    ADD CONSTRAINT fk_rails_994b99263e FOREIGN KEY (enrollment_id) REFERENCES enrollments(id);
 
 
 --
@@ -458,4 +474,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160324014653');
 INSERT INTO schema_migrations (version) VALUES ('20160325031905');
 
 INSERT INTO schema_migrations (version) VALUES ('20160328170728');
+
+INSERT INTO schema_migrations (version) VALUES ('20160403220906');
 
