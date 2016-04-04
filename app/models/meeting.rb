@@ -1,4 +1,6 @@
 class Meeting < ActiveRecord::Base
+  include Personable
+
   belongs_to :course, inverse_of: :meetings
   belongs_to :room,   inverse_of: :meetings
   belongs_to :enrollment
@@ -30,6 +32,21 @@ class Meeting < ActiveRecord::Base
 
     def time_of_day
       Tod::TimeOfDay
+    end
+  end
+
+  class << self
+    def lessons_for_person(person_id)
+      collection_for_person(person_id)
+    end
+
+    private
+
+    def _collection_for_person(person_id)
+      person_matches = teacher_id_or_student_id_matches(person_id)
+      joins(:enrollment)
+        .where(person_matches)
+        .distinct
     end
   end
 

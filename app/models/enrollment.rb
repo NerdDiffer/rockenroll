@@ -1,4 +1,6 @@
 class Enrollment < ActiveRecord::Base
+  include Personable
+
   belongs_to :course, inverse_of: :enrollments
 
   belongs_to :teacher, class_name: 'Person'
@@ -14,15 +16,15 @@ class Enrollment < ActiveRecord::Base
 
   class << self
     def enrollments_for_person(person_id)
-      if is_integer_ish?(person_id)
-        where('student_id = ? OR teacher_id = ?', person_id, person_id)
-      end
+      collection_for_person(person_id)
     end
 
     private
 
-    def is_integer_ish?(value)
-      value.to_i == value
+    def _collection_for_person(person_id)
+      person_matches = teacher_id_or_student_id_matches(person_id)
+      where(person_matches)
+        .distinct
     end
   end
 end

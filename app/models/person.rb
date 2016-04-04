@@ -30,4 +30,12 @@ class Person < ActiveRecord::Base
   def enrollments
     Enrollment.enrollments_for_person(id)
   end
+
+  def courses
+    Course.courses_for_person(id)
+  end
+
+  def lessons
+    Meeting.lessons_for_person(id)
+  end
 end
