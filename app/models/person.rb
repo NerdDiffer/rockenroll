@@ -38,4 +38,12 @@ class Person < ActiveRecord::Base
   def lessons
     Meeting.lessons_for_person(id)
   end
+
+  def lessons_within(lower_bound, upper_bound)
+    lessons.select { |lesson| lesson.overlaps?(lower_bound, upper_bound) }
+  end
+
+  def scheduled?(lower_bound, upper_bound)
+    lessons.any? { |lesson| lesson.overlaps?(lower_bound, upper_bound) }
+  end
 end
