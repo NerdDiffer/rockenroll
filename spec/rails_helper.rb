@@ -8,6 +8,7 @@ end
 
 require 'spec_helper'
 require 'rspec/rails'
+require 'support/factories'
 # require 'support/stub_login'
 
 # include StubLogin
