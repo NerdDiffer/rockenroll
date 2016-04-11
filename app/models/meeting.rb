@@ -20,24 +20,16 @@ class Meeting < ActiveRecord::Base
   }
 
   class << self
+    def lessons_for_person(person_id)
+      collection_for_person(person_id)
+    end
+
     def earliest_start
       @earliest_start ||= time_of_day.new(9, 0, 0)  # => 09:00:00
     end
 
     def latest_start
-      @latest_start   ||= time_of_day.new(21, 0, 0) # => 21:00:00
-    end
-
-    private
-
-    def time_of_day
-      Tod::TimeOfDay
-    end
-  end
-
-  class << self
-    def lessons_for_person(person_id)
-      collection_for_person(person_id)
+      @latest_start ||= time_of_day.new(21, 0, 0)   # => 21:00:00
     end
 
     private
@@ -48,6 +40,16 @@ class Meeting < ActiveRecord::Base
         .where(person_matches)
         .distinct
     end
+
+    def time_of_day
+      Tod::TimeOfDay
+    end
+  end
+
+  def overlaps?(lower_bound, upper_bound)
+    starts = start_times_for_overlapping(lower_bound)
+    stops  = stop_times_for_overlapping(upper_bound)
+    starts.max <= stops.min
   end
 
   def stop
@@ -71,20 +73,24 @@ class Meeting < ActiveRecord::Base
 
   # Round down to nearest multiple of 5
   def round_minute_down(minute)
-    remainder = minute % MINUTE_INTERVAL
+    remainder = minute % minute_interval
     minute -= remainder
   end
 
   # Round up to nearest multiple of 5
   def round_minute_up(minute)
-    remainder = minute % MINUTE_INTERVAL
+    remainder = minute % minute_interval
 
     if remainder == 0
       minute
     else
-      difference = MINUTE_INTERVAL - remainder
+      difference = minute_interval - remainder
       minute += difference
     end
+  end
+
+  def minute_interval
+    MINUTE_INTERVAL
   end
 
   def validate_start
@@ -101,8 +107,19 @@ class Meeting < ActiveRecord::Base
   def start_time_within_regular_business_hours?
     earliest = self.class.earliest_start.second_of_day
     latest   = self.class.latest_start.second_of_day
-    seconds_since_midnight = start.seconds_since_midnight.to_i
 
-    seconds_since_midnight.between?(earliest, latest)
+    start_time_seconds_since_midnight.between?(earliest, latest)
+  end
+
+  def start_time_seconds_since_midnight
+    start.seconds_since_midnight.to_i
+  end
+
+  def start_times_for_overlapping(lower_bound)
+    [start, lower_bound]
+  end
+
+  def stop_times_for_overlapping(upper_bound)
+    [stop, upper_bound]
   end
 end
