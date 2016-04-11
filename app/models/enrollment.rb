@@ -13,6 +13,7 @@ class Enrollment < ActiveRecord::Base
   validates :course,  presence: true
   validates :teacher, presence: true
   validates :student, presence: true
+  validate :different_teacher_and_student
 
   class << self
     def enrollments_for_person(person_id)
@@ -26,5 +27,18 @@ class Enrollment < ActiveRecord::Base
       where(person_matches)
         .distinct
     end
+  end
+
+  private
+
+  def different_teacher_and_student
+    if teacher_and_student_same?
+      msg = 'Student & Teacher must be two different people'
+      errors.add(:base, msg)
+    end
+  end
+
+  def teacher_and_student_same?
+    teacher_id == student_id
   end
 end
