@@ -4,6 +4,7 @@ describe Meeting do
   subject { build(:meeting) }
   let(:earliest_start) { Tod::TimeOfDay.new(9, 0, 0) }
   let(:latest_start)   { Tod::TimeOfDay.new(21, 0, 0) }
+  let(:enrollment) { build(:enrollment) }
 
   describe '.lessons_for_person' do
     before(:each) do
@@ -442,6 +443,193 @@ describe Meeting do
     it 'converts the number of seconds since midnight to an integer' do
       actual = subject.send(:start_time_seconds_since_midnight)
       expect(actual).to eq 123
+    end
+  end
+
+  describe '#validate_people_availability' do
+    context 'qualifying necessary attributes' do
+      context 'when #enrollment_id is nil' do
+        before(:each) do
+          allow(subject).to receive(:enrollment_id?).and_return(false)
+        end
+
+        it 'returns nil' do
+          actual = subject.send(:validate_people_availability)
+          expect(actual).to be_nil
+        end
+      end
+
+      context 'when #start is nil' do
+        before(:each) do
+          allow(subject).to receive(:enrollment_id?).and_return(true)
+          allow(subject).to receive(:start?).and_return(false)
+        end
+
+        it 'returns nil' do
+          actual = subject.send(:validate_people_availability)
+          expect(actual).to be_nil
+        end
+      end
+
+      context 'when #length is nil' do
+        before(:each) do
+          allow(subject).to receive(:enrollment_id?).and_return(true)
+          allow(subject).to receive(:start?).and_return(true)
+          allow(subject).to receive(:length?).and_return(false)
+        end
+
+        it 'returns nil' do
+          actual = subject.send(:validate_people_availability)
+          expect(actual).to be_nil
+        end
+      end
+    end
+
+    context 'otherwise' do
+      let(:start) { Time.new(2016, 1, 1, 12, 0, 0) }
+
+      before(:each) do
+        allow(subject).to receive(:enrollment_id?).and_return(true)
+        allow(subject).to receive(:start?).and_return(true)
+        allow(subject).to receive(:length?).and_return(true)
+        allow(subject).to receive(:start).and_return(start)
+      end
+
+      context 'when teacher is already scheduled' do
+        before(:each) do
+          allow(subject).to receive(:teacher_scheduled?).and_return(true)
+          allow(subject).to receive(:student_scheduled?).and_return(false)
+          subject.valid?
+        end
+
+        it 'adds error to :base' do
+          actual = subject.errors
+          expect(actual).not_to be_empty
+        end
+        it 'mentions Teacher in the message' do
+          actual = subject.errors.messages[:base][0]
+          expect(actual).to match(/teacher/i)
+        end
+      end
+
+      context 'when student is already scheduled' do
+        before(:each) do
+          allow(subject).to receive(:teacher_scheduled?).and_return(false)
+          allow(subject).to receive(:student_scheduled?).and_return(true)
+          subject.valid?
+        end
+
+        it 'adds error to :base' do
+          actual = subject.errors
+          expect(actual).not_to be_empty
+        end
+        it 'mentions Student in the message' do
+          actual = subject.errors.messages[:base][0]
+          expect(actual).to match(/student/i)
+        end
+      end
+    end
+  end
+
+  describe '#teacher_scheduled?' do
+    let(:teacher) { build(:person) }
+    let(:start) { 'start' }
+    let(:stop)  { 'stop' }
+
+    before(:each) do
+      allow(enrollment).to receive(:teacher).and_return(teacher)
+      allow(subject).to receive(:enrollment).and_return(enrollment)
+      allow(subject).to receive(:start).and_return(start)
+      allow(subject).to receive(:stop).and_return(stop)
+    end
+
+    context 'expected method calls' do
+      before(:each) do
+        allow(teacher).to receive(:scheduled?)
+      end
+      after(:each) do
+        subject.send(:teacher_scheduled?)
+      end
+
+      it 'loads the teacher on the enrollment' do
+        expect(enrollment).to receive(:teacher)
+      end
+      it 'calls #scheduled? on the teacher' do
+        expect(teacher).to receive(:scheduled?).with(start, stop)
+      end
+    end
+
+    context 'when teacher is scheduled' do
+      before(:each) do
+        allow(teacher).to receive(:scheduled?).and_return(true)
+      end
+
+      it 'returns true' do
+        actual = subject.send(:teacher_scheduled?)
+        expect(actual).to be_truthy
+      end
+    end
+
+    context 'when teacher is NOT scheduled' do
+      before(:each) do
+        allow(teacher).to receive(:scheduled?).and_return(false)
+      end
+
+      it 'returns false' do
+        actual = subject.send(:teacher_scheduled?)
+        expect(actual).to be_falsey
+      end
+    end
+  end
+
+  describe '#student_scheduled?' do
+    let(:student) { build(:person) }
+    let(:start) { 'start' }
+    let(:stop)  { 'stop' }
+
+    before(:each) do
+      allow(enrollment).to receive(:student).and_return(student)
+      allow(subject).to receive(:enrollment).and_return(enrollment)
+      allow(subject).to receive(:start).and_return(start)
+      allow(subject).to receive(:stop).and_return(stop)
+    end
+
+    context 'expected method calls' do
+      before(:each) do
+        allow(student).to receive(:scheduled?)
+      end
+      after(:each) do
+        subject.send(:student_scheduled?)
+      end
+
+      it 'loads the student on the enrollment' do
+        expect(enrollment).to receive(:student)
+      end
+      it 'calls #scheduled? on the student' do
+        expect(student).to receive(:scheduled?).with(start, stop)
+      end
+    end
+
+    context 'when student is scheduled' do
+      before(:each) do
+        allow(student).to receive(:scheduled?).and_return(true)
+      end
+
+      it 'returns true' do
+        actual = subject.send(:student_scheduled?)
+        expect(actual).to be_truthy
+      end
+    end
+
+    context 'when student is NOT scheduled' do
+      before(:each) do
+        allow(student).to receive(:scheduled?).and_return(false)
+      end
+
+      it 'returns false' do
+        actual = subject.send(:student_scheduled?)
+        expect(actual).to be_falsey
+      end
     end
   end
 end

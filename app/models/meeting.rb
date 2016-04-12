@@ -9,6 +9,7 @@ class Meeting < ActiveRecord::Base
 
   before_validation :round_start_down
   validate :start, :validate_start
+  validate :validate_people_availability
 
   enum length: {
     twenty_minute:       '20',
@@ -121,5 +122,24 @@ class Meeting < ActiveRecord::Base
 
   def stop_times_for_overlapping(upper_bound)
     [stop, upper_bound]
+  end
+
+  def validate_people_availability
+    return unless enrollment_id?
+    return unless start?
+    return unless length?
+
+    errors.add(:base, 'Teacher is already scheduled') if teacher_scheduled?
+    errors.add(:base, 'Student is already scheduled') if student_scheduled?
+  end
+
+  def teacher_scheduled?
+    teacher = enrollment.teacher
+    teacher.scheduled?(start, stop)
+  end
+
+  def student_scheduled?
+    student = enrollment.student
+    student.scheduled?(start, stop)
   end
 end

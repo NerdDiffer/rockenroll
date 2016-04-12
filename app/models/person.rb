@@ -40,10 +40,20 @@ class Person < ActiveRecord::Base
   end
 
   def lessons_within(lower_bound, upper_bound)
-    lessons.select { |lesson| lesson.overlaps?(lower_bound, upper_bound) }
+    lessons.select { |lesson| overlaps?(lesson, lower_bound, upper_bound) }
   end
 
   def scheduled?(lower_bound, upper_bound)
-    lessons.any? { |lesson| lesson.overlaps?(lower_bound, upper_bound) }
+    lessons.any? { |lesson| overlaps?(lesson, lower_bound, upper_bound) }
+  end
+
+  def available?(lower_bound, upper_bound)
+    lessons.none? { |lesson| overlaps?(lesson, lower_bound, upper_bound) }
+  end
+
+  private
+
+  def overlaps?(lesson, lower_bound, upper_bound)
+    lesson.overlaps?(lower_bound, upper_bound)
   end
 end

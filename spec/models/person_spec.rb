@@ -117,6 +117,49 @@ describe Person do
     end
   end
 
+  describe '#available?' do
+    before(:each) do
+      stub_lessons
+    end
+
+    context 'when range includes lesson dates & times' do
+      it 'returns false' do
+        lower_bound = '2016-04-10 12:00:00'
+        upper_bound = '2016-04-23 12:00:00'
+
+        actual = subject.available?(lower_bound, upper_bound)
+
+        expect(actual).to be_falsey
+      end
+    end
+
+    context 'when range does NOT include lesson dates & times' do
+      it 'returns true' do
+        lower_bound = '2016-04-25 12:00:00'
+        upper_bound = '2016-05-01 12:00:00'
+
+        actual = subject.available?(lower_bound, upper_bound)
+
+        expect(actual).to be_truthy
+      end
+    end
+  end
+
+  describe '#overlaps?' do
+    let(:lesson) { build(:meeting) }
+
+    before(:each) do
+      allow(lesson).to receive(:overlaps?)
+    end
+    after(:each) do
+      subject.send(:overlaps?, lesson, :lower_bound, :upper_bound)
+    end
+
+    it 'calls #overlaps? on the lesson object' do
+      expect(lesson).to receive(:overlaps?).with(:lower_bound, :upper_bound)
+    end
+  end
+
   private
 
   def stub_lessons
