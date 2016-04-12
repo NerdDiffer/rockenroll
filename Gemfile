@@ -25,10 +25,13 @@ group :development, :test do
   gem 'codeclimate-test-reporter', '~> 0.4.8', require: nil
 end
 
+group :development, :production do
+  gem 'faker', '~> 1.6.3', require: false
+end
+
 group :development do
   gem 'web-console', '~> 3.1.1'
   gem 'spring', '~> 1.6.3'
-  gem 'faker', '~> 1.6.3', require: false
 end
 
 group :test do

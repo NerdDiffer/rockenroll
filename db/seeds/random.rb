@@ -29,6 +29,11 @@ module Seeds
         start_date.to_time.utc.change(params)
       end
 
+      def enrollment_id
+        @enrollments_ids ||= Enrollment.select(:id)
+        @enrollments_ids.sample.id
+      end
+
       private
 
       def meeting_start_date
@@ -52,7 +57,7 @@ module Seeds
 
       def parse_time(seconds_since_midnight)
         time_obj = Time.at(seconds_since_midnight).utc
-        time_str = time_obj.strftime("%H:%M")
+        time_str = time_obj.strftime('%H:%M')
         time_str.split(':')
       end
     end

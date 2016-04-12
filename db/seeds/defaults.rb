@@ -1,10 +1,9 @@
 module Seeds
   module Defaults
-    @rooms = %w(alpha beta)
-    @courses = ['Intro to foo bars', 'Seminar in basket-weaving',
-                'Advanced Q-tipping']
-    @num_people = 10
-    @num_meetings = 10
+    @rooms   = %w(Asencio Brouwer Coste Dyens Eythorsson Frasca Giuliani)
+    @courses = ['Scales', 'RH technique', 'Ear Training', 'Ensemble']
+    @num_people      = 10
+    @num_meetings    = 10
     @num_enrollments = 10
     @person_age = { min: 5, max: 100 }
 

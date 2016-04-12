@@ -1,5 +1,3 @@
-require 'faker'
-
 module Seeds
   module CreateOne
     class << self
@@ -26,12 +24,12 @@ module Seeds
       end
 
       def meeting!(start, length, associations = {})
-        Meeting.create!(start: start,
+        Meeting.create!(start:  start,
                         length: length,
-                        course_id: associations[:course_id],
-                        room_id:   associations[:room_id])
+                        course_id:     associations[:course_id],
+                        room_id:       associations[:room_id],
+                        enrollment_id: associations[:enrollment_id])
       end
-
     end
   end
 end
