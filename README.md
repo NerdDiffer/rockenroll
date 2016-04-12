@@ -1,4 +1,4 @@
-# Music School
+# Rock Enroll
 
 Sign up for music lessons.
 
