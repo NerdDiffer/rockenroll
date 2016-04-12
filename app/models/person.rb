@@ -12,4 +12,8 @@ class Person < ActiveRecord::Base
     class_name: 'Enrollment',
     inverse_of: :student
   has_many :teachers, through: :enrollments_as_student
+
+  def enrollments
+    Enrollment.enrollments_for_person(id)
+  end
 end
