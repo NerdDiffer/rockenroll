@@ -1,6 +1,6 @@
 <div class='navigation-wrapper'>
   <%= link_to(root_path, class: 'logo') do %>
-    <img src='' alt='Logo Image'>
+    <i class='fa fa-music fa-2x' aria-hidden='true'></i>
   <% end %>
   <% menu_link_opts = { class: 'navigation-menu-button',
                         id: 'js-mobile-menu' } %>
@@ -10,7 +10,4 @@
   <nav role='navigation'>
     <%= render 'navigation/main' %>
   </nav>
-  <div class='navigation-tools'>
-    <%= render 'navigation/search' %>
-  </div>
 </div>

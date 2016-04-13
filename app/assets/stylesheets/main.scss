@@ -1,5 +1,6 @@
 body {
   @include outer-container(100%);
+  margin-top: 0;
 }
 
 div.container.main {
@@ -12,4 +13,8 @@ div.container.main {
 
 a.plus_one {
   float: right;
+  span {
+    font-family: $base-font-family;
+    margin-left: 0.5rem;
+  }
 }

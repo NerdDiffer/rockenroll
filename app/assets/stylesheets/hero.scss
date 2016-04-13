@@ -1,0 +1,43 @@
+.hero {
+  $large-screen: em(860) !default;
+  $hero-color: $dark-gray;
+
+  background-color: $light-coffee;
+
+  .hero-inner {
+    @include clearfix;
+    margin: auto;
+    padding: 1.5em;
+    padding-bottom: 1em;
+    text-align: center;
+
+    .hero-logo i {
+      font-size: 10rem;
+    }
+
+    .hero-copy {
+      text-align: center;
+
+      h1 {
+        color: $hero-color;
+        font-size: 1.6em;
+        margin-bottom: 0.5em;
+
+        @include media($large-screen) {
+          font-size: 1.8em;
+        }
+      }
+
+      p {
+        color: $hero-color;
+        line-height: 1.4em;
+        margin: 0 auto 3em auto;
+
+        @include media($large-screen) {
+          font-size: 1.1em;
+          max-width: 40%;
+        }
+      }
+    }
+  }
+}

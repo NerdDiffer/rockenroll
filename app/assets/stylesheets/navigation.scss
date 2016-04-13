@@ -7,7 +7,7 @@ header.navigation {
   $dark-gray: #333 !default;
   $large-screen: em(860) !default;
   $navigation-padding: 1em;
-  $navigation-background: $dark-gray;
+  $navigation-background: $brown-red;
   $navigation-color: transparentize(white, 0.3);
   $navigation-color-hover: white;
   $navigation-height: 60px;
@@ -38,10 +38,11 @@ header.navigation {
     max-height: $navigation-height;
     padding-left: $navigation-padding;
     padding-right: 2em;
+    color: $light-coffee;
 
-    img {
+    i {
       max-height: $navigation-height;
-      padding: 0.8em 0;
+      padding: 0.4em 0;
     }
   }
 

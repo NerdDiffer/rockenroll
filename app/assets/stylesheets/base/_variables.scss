@@ -20,14 +20,18 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$blue: #1565c0;
-$dark-gray: #333;
+$blue:        #1565c0;
+$dark-gray:   #333;
 $medium-gray: #999;
-$light-gray: #ddd;
-
+$light-gray:  #ddd;
+// MMA colors
+$green-tint:  #649c72;
+$brown-red:   #783831;
+$grey-blue:   #9bae9d;
+$light-coffee: #ffca8c;
 // Font Colors
 $base-font-color: $dark-gray;
-$action-color: $blue;
+$action-color: $brown-red;
 
 // Border
 $base-border-color: $light-gray;

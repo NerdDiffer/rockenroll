@@ -19,7 +19,7 @@ class MeetingDecorator < ApplicationDecorator
   end
 
   def link_to_room
-    h.link_to(room_name, course) if room_id?
+    h.link_to(room_name, room) if room_id?
   end
 
   def course_name

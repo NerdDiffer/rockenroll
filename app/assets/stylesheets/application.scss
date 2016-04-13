@@ -2,7 +2,9 @@
 // 'base/base' is the bourbon refill's library. See: http://refills.bourbon.io/
 @import 'base/base';
 @import 'neat';
+@import 'font-awesome';
 
 // everything else:
 @import 'main';
 @import 'navigation';
+@import 'hero';
