@@ -14,5 +14,9 @@ module LinkHelper
     def javascript_void
       'javascript:void(0)'
     end
+
+    def target_blank
+      { target: 'blank' }
+    end
   end
 end

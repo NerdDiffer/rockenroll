@@ -1,0 +1,27 @@
+<% logo_class = { class: 'logo' } %>
+
+<div class='footer-logo'>
+  <%= link_to(root_path, logo_class) do %>
+    <i class='fa fa-music fa-2x' aria-hidden='true'></i>
+  <% end %>
+</div>
+
+<ul>
+  <li><%= link_to('About', LinkHelper.javascript_void) %></li>
+  <li><%= link_to('Contact', LinkHelper.javascript_void) %></li>
+</ul>
+
+<div class='footer-secondary-links'>
+  <span class='disclaimer'>Names &amp; dates are fictional. They are generated &amp; arbitrarily replaced.</span>
+
+  <ul class='footer-social'>
+    <li>
+      <% github_link = 'https://github.com/NerdDiffer/rockenroll/' %>
+      <% github_link_opts = LinkHelper.target_blank.merge(logo_class)%>
+
+      <%= link_to(github_link, github_link_opts) do %>
+        <i class='fa fa-github fa-2x' aria-hidden='true'></i>
+      <% end %>
+    </li>
+  </ul>
+</div>
