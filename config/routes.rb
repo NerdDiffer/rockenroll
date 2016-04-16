@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   resources :meetings
   resources :enrollments
   resources :people
+
+  get 'contact', to: 'feedback#new'
+  post 'contact', to: 'feedback#create'
 end

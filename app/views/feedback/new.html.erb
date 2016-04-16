@@ -1,0 +1,28 @@
+<h1>Contact Us</h1>
+
+<div class='contact_us'>
+  <p>Messages sent through this form don't actually go anywhere.</p>
+  <p>Write to rafael at rafael espinoza dot com if you want to get in touch.</p>
+</div>
+
+<%= form_for(@feedback, url: contact_path) do |f| %>
+  <fieldset>
+    <div class='field'>
+      <%= f.text_field :name, placeholder: 'Name' %>
+    </div>
+
+    <div class='field'>
+      <%= f.email_field :email, placeholder: 'Email'%>
+    </div>
+
+    <div class='field'>
+      <%= f.text_area :message, placeholder: 'Message'%>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div class='field'>
+      <%= f.submit 'Send' %>
+    </div>
+  </fieldset>
+<% end %>

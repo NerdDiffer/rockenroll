@@ -5,6 +5,9 @@ FactoryGirl.define do
   factory :enrollment do
   end
 
+  factory :feedback do
+  end
+
   factory :meeting do
   end
 
