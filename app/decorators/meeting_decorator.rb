@@ -7,13 +7,6 @@ class MeetingDecorator < ApplicationDecorator
     numbers.map(&:to_i)
   end
 
-  def available_rooms
-    all_rooms = fetch_all_rooms
-    all_rooms.each_with_object({}) do |(room), rooms_collection|
-      collect(room, rooms_collection)
-    end
-  end
-
   def link_to_course
     h.link_to(course_name, course) if course_id?
   end
@@ -46,16 +39,5 @@ class MeetingDecorator < ApplicationDecorator
 
   def lengths
     object.class.lengths
-  end
-
-  def fetch_all_rooms
-    Room.all
-  end
-
-  def collect(room, rooms_collection)
-    name = room.name.to_s
-    id   = room.id
-    rooms_collection[name] = id
-    rooms_collection
   end
 end

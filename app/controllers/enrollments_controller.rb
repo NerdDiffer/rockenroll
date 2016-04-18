@@ -47,7 +47,6 @@ class EnrollmentsController < ApplicationController
   end
 
   def whitelisted_attr
-    [:course_name, :teacher_name, :student_name,
-     :course_id, :teacher_id, :student_id]
+    [:course_id, :teacher_id, :student_id]
   end
 end

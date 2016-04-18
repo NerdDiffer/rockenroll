@@ -47,7 +47,6 @@ class MeetingsController < ApplicationController
   end
 
   def whitelisted_attr
-    [:course_name, :room_name, :start, :length,
-     :course_id, :room_id]
+    [:start, :length, :course_id, :room_id]
   end
 end

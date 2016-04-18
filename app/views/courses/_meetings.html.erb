@@ -23,7 +23,7 @@
       <% meetings = CourseDecorator.decorate_collection(course.meetings) %>
       <% meetings.each do |meeting| %>
       <tr>
-        <td><%= link_to(meeting.id, meeting) %></td>
+        <td><%= link_to(meeting.id, meeting_path(meeting)) %></td>
         <td><%= meeting.link_to_course %></td>
         <td><%= meeting.link_to_room %></td>
         <td><%= meeting.start %></td>

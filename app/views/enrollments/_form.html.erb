@@ -1,15 +1,29 @@
+<% all_people = SelectOptionHelper.all_people %>
+
 <%= form_for @enrollment do |f| %>
   <div class='field'>
-    <%= f.label :course %>
-    <%= f.text_field :course %>
+    <% course_opts = options_for_select(
+         SelectOptionHelper.all_courses,
+         enrollment.course_id
+    ) %>
+    <%= f.label :course_id %>
+    <%= f.select :course_id, course_opts, include_blank: true %>
   </div>
   <div class='field'>
-    <%= f.label :teacher %>
-    <%= f.text_field :teacher %>
+    <% teacher_opts = options_for_select(
+         all_people,
+         enrollment.teacher_id
+    ) %>
+    <%= f.label :teacher_id %>
+    <%= f.select :teacher_id, teacher_opts, include_blank: true %>
   </div>
   <div class='field'>
-    <%= f.label :student %>
-    <%= f.text_field :student %>
+    <% student_opts = options_for_select(
+         all_people,
+         enrollment.student_id
+    ) %>
+    <%= f.label :student_id %>
+    <%= f.select :student_id, student_opts, include_blank: true %>
   </div>
   <div class='field'>
     <%= f.submit %>

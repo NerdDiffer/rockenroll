@@ -1,24 +1,28 @@
 <%= form_for meeting do |f| %>
   <div class='field'>
-    <%= f.label :course %>
-    <%= f.text_field :course %>
+    <% course_opts = options_for_select(
+         SelectOptionHelper.all_courses,
+         meeting.course_id
+    ) %>
+    <%= f.label :course_id %>
+    <%= f.select :course_id, course_opts, include_blank: true %>
   </div>
   <div class='field'>
     <% room_opts = options_for_select(
-         meeting.available_rooms,
-         meeting.room_name
+         SelectOptionHelper.all_rooms,
+         meeting.room_id
     ) %>
-    <%= f.label :room %>
-    <%= f.select :room, room_opts, include_blank: true %>
+    <%= f.label :room_id %>
+    <%= f.select :room_id, room_opts, include_blank: true %>
   </div>
   <div class='field'>
     <%= f.label :start %>
-    <%= f.text_field :start %>
+    <%= f.datetime_local_field :start %>
   </div>
   <div class='field'>
     <% length_opts = options_for_select(
          meeting.allowed_lengths,
-         meeting.length
+         meeting.length_to_i
     ) %>
     <%= f.label 'Length (minutes)' %>
     <%= f.select :length, length_opts, include_blank: true %>
